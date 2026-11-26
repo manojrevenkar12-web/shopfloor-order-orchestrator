@@ -1,0 +1,77 @@
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: orchestrator
+automountServiceAccountToken: false
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: orchestrator
+data:
+  NATS_URL: nats://nats:4222
+  ERP_BASE_URL: https://erp-gateway.internal/sap/opu/odata4/ewm
+  TICK_MS: "1000"
+  LOG_LEVEL: info
+  OTEL_EXPORTER_OTLP_ENDPOINT: http://otel-collector.observability:4318
+  OTEL_SERVICE_NAME: shopfloor-order-orchestrator
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: orchestrator
+spec:
+  # One active orchestrator per shopfloor: allocation is single-writer. A standby takes over via
+  # Recreate on failure; the durable NATS consumer means nothing is lost in between.
+  replicas: 1
+  strategy: { type: Recreate }
+  selector:
+    matchLabels: { app.kubernetes.io/name: orchestrator }
+  template:
+    metadata:
+      labels: { app.kubernetes.io/name: orchestrator }
+      annotations:
+        prometheus.io/scrape: "true"
+        prometheus.io/port: "8080"
+        prometheus.io/path: /metrics
+    spec:
+      serviceAccountName: orchestrator
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        seccompProfile: { type: RuntimeDefault }
+      containers:
+        - name: orchestrator
+          image: ghcr.io/manojrevenkar12-web/shopfloor-order-orchestrator:0.1.0
+          ports:
+            - { name: http, containerPort: 8080 }
+          envFrom:
+            - configMapRef: { name: orchestrator }
+          env:
+            - name: API_TOKENS
+              valueFrom: { secretKeyRef: { name: orchestrator, key: api-tokens } }
+            - name: ERP_AUTH
+              valueFrom: { secretKeyRef: { name: orchestrator, key: erp-auth } }
+            - name: ANTHROPIC_API_KEY
+              valueFrom: { secretKeyRef: { name: orchestrator, key: anthropic-api-key, optional: true } }
+          readinessProbe:
+            httpGet: { path: /healthz, port: http }
+          livenessProbe:
+            httpGet: { path: /healthz, port: http }
+            periodSeconds: 20
+          resources:
+            requests: { cpu: 250m, memory: 256Mi }
+            limits: { memory: 768Mi }
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities: { drop: [ALL] }
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: orchestrator
+spec:
+  selector: { app.kubernetes.io/name: orchestrator }
+  ports:
+    - { name: http, port: 80, targetPort: http }

@@ -1,0 +1,7 @@
+node_modules/
+dist/
+coverage/
+dashboard/node_modules/
+dashboard/dist/
+.nats-data/
+*.sqlite

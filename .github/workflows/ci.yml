@@ -1,0 +1,84 @@
+name: ci
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  service:
+    name: typecheck, unit tests, lab
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - name: lab smoke (no duplicates, no double bookings, no manual resets for the orchestrator)
+        run: npm run lab -- smoke
+      - name: generated results match the locked held-out run
+        run: npm run lab -- check
+      - name: held-out seeds stay locked
+        run: |
+          test -f lab/heldout.lock
+          if node --disable-warning=ExperimentalWarning dist/lab/cli.js heldout; then echo "held-out split ran twice" && exit 1; fi
+
+  nats:
+    name: integration tests against NATS JetStream
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+      - run: npm ci
+      - name: nats-server
+        run: |
+          curl -sL https://github.com/nats-io/nats-server/releases/download/v2.12.2/nats-server-v2.12.2-linux-amd64.tar.gz | tar xz
+          echo "NATS_SERVER_BIN=$PWD/nats-server-v2.12.2-linux-amd64/nats-server" >> "$GITHUB_ENV"
+      - run: npm run test:nats
+
+  dashboard:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: dashboard
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: npm
+          cache-dependency-path: dashboard/package-lock.json
+      - run: npm ci
+      - run: npm run typecheck
+      - run: npm test
+      - run: npm run build
+
+  kubernetes:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: tools
+        run: |
+          curl -sL https://github.com/kubernetes-sigs/kustomize/releases/download/kustomize%2Fv5.7.1/kustomize_v5.7.1_linux_amd64.tar.gz | tar xz
+          curl -sL https://github.com/yannh/kubeconform/releases/download/v0.7.0/kubeconform-linux-amd64.tar.gz | tar xz
+      - run: |
+          ./kustomize build deploy/k8s/overlays/prod > /tmp/prod.yaml
+          ./kubeconform -strict -summary -kubernetes-version 1.31.0 /tmp/prod.yaml
+
+  image:
+    runs-on: ubuntu-latest
+    needs: service
+    steps:
+      - uses: actions/checkout@v4
+      - run: docker build -t shopfloor-order-orchestrator:ci .

@@ -1,0 +1,77 @@
+/* Design tokens. Every colour, size and duration in the dashboard comes from here. */
+:root {
+  color-scheme: light;
+  --page: #f1efe9;
+  --surface-1: #ffffff;
+  --surface-2: #f7f6f2;
+  --ink-1: #17171a;
+  --ink-2: #55565c;
+  --ink-3: #85868c;
+  --rule: #dddad2;
+  --grid: #e8e6e0;
+  --accent: #1d2a5c;
+  --accent-ink: #f4f5fb;
+  --alarm: #b3261e;
+  --ok: #0a6b3d;
+  --zero: #0a6b3d;
+
+  /* One fixed hue per design: slots 1-4 of the validated categorical palette. */
+  --series-orchestrator: #257de0;
+  --series-point-to-point: #f47230;
+  --series-cloud-only: #00b894;
+  --series-orchestrator-static: #f2a600;
+
+  --font-sans: "IBM Plex Sans", system-ui, sans-serif;
+  --font-mono: "IBM Plex Mono", ui-monospace, monospace;
+  --text-xs: 0.75rem;
+  --text-sm: 0.8125rem;
+  --text-md: 0.9375rem;
+  --text-lg: 1.125rem;
+  --text-xl: 1.75rem;
+  --text-hero: 3rem;
+  --weight-medium: 500;
+  --weight-bold: 600;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --radius-sm: 3px;
+  --radius-md: 8px;
+  --hairline: 1px;
+  --rule-strong: 2px;
+  --page-max: 1180px;
+
+  --bar-height: 16px;
+  --label-col: 220px;
+  --whisker: 1.5px;
+  --cap: 8px;
+  --swatch: 9px;
+  --track-min: 160px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    color-scheme: dark;
+    --page: #111214;
+    --surface-1: #18191c;
+    --surface-2: #1f2023;
+    --ink-1: #ebebef;
+    --ink-2: #a9aab0;
+    --ink-3: #7c7d84;
+    --rule: #2c2d31;
+    --grid: #25262a;
+    --accent: #9fb2f5;
+    --accent-ink: #111214;
+    --alarm: #f08a80;
+    --ok: #6fd39d;
+    --zero: #6fd39d;
+    --series-orchestrator: #338ced;
+    --series-point-to-point: #e76624;
+    --series-cloud-only: #00a888;
+    --series-orchestrator-static: #d28e05;
+  }
+}

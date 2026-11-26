@@ -1,0 +1,28 @@
+# Local run: NATS with JetStream, the cloud orchestrator, and the seven edge gateways of the
+# reference floor (timed drivers standing in for NOVA OS cells and the VDA 5050 fleet).
+#   docker compose -f deploy/docker-compose.yml up --build
+x-edge: &edge
+  build: ..
+  command: ["node", "--disable-warning=ExperimentalWarning", "dist/service/edgeMain.js"]
+  depends_on: [nats]
+  volumes: ["edge-data:/data"]
+services:
+  nats:
+    image: nats:2.12-alpine
+    command: ["-js", "-sd", "/data"]
+    ports: ["4222:4222"]
+  orchestrator:
+    build: ..
+    depends_on: [nats]
+    environment:
+      NATS_URL: nats://nats:4222
+      API_TOKENS: erp:erp-dev,viewer:viewer-dev,supervisor:sup-dev
+    ports: ["8080:8080"]
+  edge-c1: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: nova-c1, EDGE_DB: /data/nova-c1.sqlite } }
+  edge-c2: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: nova-c2, EDGE_DB: /data/nova-c2.sqlite } }
+  edge-c3: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: nova-c3, EDGE_DB: /data/nova-c3.sqlite } }
+  edge-c4: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: nova-c4, EDGE_DB: /data/nova-c4.sqlite } }
+  edge-fleet: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: fleet-vda5050, EDGE_DB: /data/fleet.sqlite } }
+  edge-humanoid: { <<: *edge, environment: { NATS_URL: "nats://nats:4222", EDGE_ID: nova-humanoid, EDGE_DB: /data/humanoid.sqlite } }
+volumes:
+  edge-data: {}

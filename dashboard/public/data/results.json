@@ -1,0 +1,681 @@
+{
+  "split": "heldout",
+  "days": 364,
+  "generatedBy": "npm run lab -- heldout",
+  "designs": [
+    {
+      "design": "point-to-point",
+      "label": "Status quo: point-to-point integration",
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "orders": {
+        "mean": 85800,
+        "sd": 0
+      },
+      "metrics": {
+        "duplicateExecutions": {
+          "mean": 3335.2,
+          "sd": 74.42
+        },
+        "manualResets": {
+          "mean": 573.8,
+          "sd": 40.64
+        },
+        "erpDoubleBookings": {
+          "mean": 2205,
+          "sd": 48.36
+        },
+        "leadP95Min": {
+          "mean": 195.65,
+          "sd": 4.64
+        },
+        "partitionLeadP95Min": {
+          "mean": 634.09,
+          "sd": 317.49
+        },
+        "latePct": {
+          "mean": 3.15,
+          "sd": 0.24
+        },
+        "leadP50Min": {
+          "mean": 5.33,
+          "sd": 0.01
+        },
+        "erpMissing": {
+          "mean": 0,
+          "sd": 0
+        },
+        "kbPerDay": {
+          "mean": 10033.28,
+          "sd": 0.26
+        }
+      }
+    },
+    {
+      "design": "cloud-only",
+      "label": "Cloud orchestrator, no edge buffering",
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "orders": {
+        "mean": 85800,
+        "sd": 0
+      },
+      "metrics": {
+        "duplicateExecutions": {
+          "mean": 490.2,
+          "sd": 24.24
+        },
+        "manualResets": {
+          "mean": 435.8,
+          "sd": 17.8
+        },
+        "erpDoubleBookings": {
+          "mean": 0,
+          "sd": 0
+        },
+        "leadP95Min": {
+          "mean": 173.36,
+          "sd": 4.6
+        },
+        "partitionLeadP95Min": {
+          "mean": 461.03,
+          "sd": 59.19
+        },
+        "latePct": {
+          "mean": 2.61,
+          "sd": 0.22
+        },
+        "leadP50Min": {
+          "mean": 4.58,
+          "sd": 0
+        },
+        "erpMissing": {
+          "mean": 0,
+          "sd": 0
+        },
+        "kbPerDay": {
+          "mean": 10026.21,
+          "sd": 0.07
+        }
+      }
+    },
+    {
+      "design": "orchestrator",
+      "label": "Orchestrator: capability routing + edge outbox, fencing, reconcile",
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "orders": {
+        "mean": 85800,
+        "sd": 0
+      },
+      "metrics": {
+        "duplicateExecutions": {
+          "mean": 0,
+          "sd": 0
+        },
+        "manualResets": {
+          "mean": 0,
+          "sd": 0
+        },
+        "erpDoubleBookings": {
+          "mean": 0,
+          "sd": 0
+        },
+        "leadP95Min": {
+          "mean": 170.42,
+          "sd": 4.86
+        },
+        "partitionLeadP95Min": {
+          "mean": 434.61,
+          "sd": 48.14
+        },
+        "latePct": {
+          "mean": 2.51,
+          "sd": 0.21
+        },
+        "leadP50Min": {
+          "mean": 4.58,
+          "sd": 0
+        },
+        "erpMissing": {
+          "mean": 0,
+          "sd": 0
+        },
+        "kbPerDay": {
+          "mean": 10264.43,
+          "sd": 9.93
+        }
+      }
+    },
+    {
+      "design": "orchestrator-static",
+      "label": "Ablation: orchestrator on fixed routes",
+      "seeds": [
+        1001,
+        1002,
+        1003,
+        1004,
+        1005
+      ],
+      "orders": {
+        "mean": 85800,
+        "sd": 0
+      },
+      "metrics": {
+        "duplicateExecutions": {
+          "mean": 0,
+          "sd": 0
+        },
+        "manualResets": {
+          "mean": 0,
+          "sd": 0
+        },
+        "erpDoubleBookings": {
+          "mean": 0,
+          "sd": 0
+        },
+        "leadP95Min": {
+          "mean": 182.14,
+          "sd": 3.11
+        },
+        "partitionLeadP95Min": {
+          "mean": 400.42,
+          "sd": 48.07
+        },
+        "latePct": {
+          "mean": 2.52,
+          "sd": 0.2
+        },
+        "leadP50Min": {
+          "mean": 5.31,
+          "sd": 0.01
+        },
+        "erpMissing": {
+          "mean": 0,
+          "sd": 0
+        },
+        "kbPerDay": {
+          "mean": 10249.53,
+          "sd": 9.39
+        }
+      }
+    }
+  ],
+  "runs": [
+    {
+      "design": "point-to-point",
+      "seed": 1001,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.3425037312825525,
+      "leadP95Min": 187.87253118896484,
+      "latePct": 2.7237762237762237,
+      "duplicateExecutions": 3394,
+      "stuckOrders": 0,
+      "manualResets": 528,
+      "erpDoubleBookings": 2291,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24198863932291667,
+      "amrUtilisationPct": 13.549220398669618,
+      "cellUtilisationPct": 45.97558459249084,
+      "messages": 13168718,
+      "kbPerDay": 10033.472940633585,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 0,
+      "partitionLeadP95Min": 392.5028160563151
+    },
+    {
+      "design": "cloud-only",
+      "seed": 1001,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.5812617146809895,
+      "leadP95Min": 165.6479082519531,
+      "latePct": 2.265734265734266,
+      "duplicateExecutions": 477,
+      "stuckOrders": 0,
+      "manualResets": 424,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24209893798828125,
+      "amrUtilisationPct": 13.342618557416735,
+      "cellUtilisationPct": 44.66474699519231,
+      "messages": 13158106,
+      "kbPerDay": 10026.1768919557,
+      "reassignedFromSilentEdges": 152,
+      "reconciles": 0,
+      "partitionLeadP95Min": 398.17742059733075
+    },
+    {
+      "design": "orchestrator",
+      "seed": 1001,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.57768652750651,
+      "leadP95Min": 161.94272634684245,
+      "latePct": 2.1515151515151514,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24199722493489584,
+      "amrUtilisationPct": 13.300051983173077,
+      "cellUtilisationPct": 44.51608885963574,
+      "messages": 13749543,
+      "kbPerDay": 10251.439410199177,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 100,
+      "partitionLeadP95Min": 363.2300411743164
+    },
+    {
+      "design": "orchestrator-static",
+      "seed": 1001,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.323710909016927,
+      "leadP95Min": 176.87995904947917,
+      "latePct": 2.167832167832168,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24190449625651042,
+      "amrUtilisationPct": 13.239323115927283,
+      "cellUtilisationPct": 44.81828618487994,
+      "messages": 13762251,
+      "kbPerDay": 10257.373046875,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 95,
+      "partitionLeadP95Min": 329.9839133911133
+    },
+    {
+      "design": "point-to-point",
+      "seed": 1002,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.330889815266927,
+      "leadP95Min": 195.93151569010416,
+      "latePct": 3.184149184149184,
+      "duplicateExecutions": 3219,
+      "stuckOrders": 0,
+      "manualResets": 559,
+      "erpDoubleBookings": 2190,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24179771728515626,
+      "amrUtilisationPct": 13.535158094750543,
+      "cellUtilisationPct": 46.43935435188365,
+      "messages": 13167898,
+      "kbPerDay": 10032.896580958104,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 0,
+      "partitionLeadP95Min": 504.7822544921875
+    },
+    {
+      "design": "cloud-only",
+      "seed": 1002,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.575933959960937,
+      "leadP95Min": 177.898093745931,
+      "latePct": 2.8205128205128207,
+      "duplicateExecutions": 521,
+      "stuckOrders": 0,
+      "manualResets": 467,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24202691650390626,
+      "amrUtilisationPct": 13.34814805540717,
+      "cellUtilisationPct": 45.19671207503434,
+      "messages": 13158204,
+      "kbPerDay": 10026.236612508585,
+      "reassignedFromSilentEdges": 178,
+      "reconciles": 0,
+      "partitionLeadP95Min": 555.7520310139975
+    },
+    {
+      "design": "orchestrator",
+      "seed": 1002,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.5803612670898435,
+      "leadP95Min": 174.04899110107422,
+      "latePct": 2.6305361305361306,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24195674641927084,
+      "amrUtilisationPct": 13.301259937063323,
+      "cellUtilisationPct": 45.02207864487943,
+      "messages": 13776893,
+      "kbPerDay": 10266.814259958792,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 120,
+      "partitionLeadP95Min": 482.74840116373696
+    },
+    {
+      "design": "orchestrator-static",
+      "seed": 1002,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.304781197102865,
+      "leadP95Min": 183.3017561360677,
+      "latePct": 2.586247086247086,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24158027750651043,
+      "amrUtilisationPct": 13.244290302049416,
+      "cellUtilisationPct": 45.28982343972579,
+      "messages": 13730291,
+      "kbPerDay": 10239.305379678915,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 123,
+      "partitionLeadP95Min": 457.1370139241536
+    },
+    {
+      "design": "point-to-point",
+      "seed": 1003,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.321369364420573,
+      "leadP95Min": 196.11355965576172,
+      "latePct": 3.266899766899767,
+      "duplicateExecutions": 3402,
+      "stuckOrders": 0,
+      "manualResets": 590,
+      "erpDoubleBookings": 2187,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.2417457560221354,
+      "amrUtilisationPct": 13.53595809591643,
+      "cellUtilisationPct": 46.29301854713574,
+      "messages": 13168753,
+      "kbPerDay": 10033.494913289835,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 0,
+      "partitionLeadP95Min": 1191.1884143839518
+    },
+    {
+      "design": "cloud-only",
+      "seed": 1003,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.5733873128255205,
+      "leadP95Min": 173.48307795817058,
+      "latePct": 2.6433566433566433,
+      "duplicateExecutions": 458,
+      "stuckOrders": 0,
+      "manualResets": 432,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24188058675130208,
+      "amrUtilisationPct": 13.333357190022555,
+      "cellUtilisationPct": 44.892248592986874,
+      "messages": 13158075,
+      "kbPerDay": 10026.152102292239,
+      "reassignedFromSilentEdges": 129,
+      "reconciles": 0,
+      "partitionLeadP95Min": 428.9756489420573
+    },
+    {
+      "design": "orchestrator",
+      "seed": 1003,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.575608056640625,
+      "leadP95Min": 171.46432115478515,
+      "latePct": 2.5687645687645686,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24205120442708333,
+      "amrUtilisationPct": 13.291569036384141,
+      "cellUtilisationPct": 44.73966862774089,
+      "messages": 13762290,
+      "kbPerDay": 10258.553319239354,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 91,
+      "partitionLeadP95Min": 410.6842748901367
+    },
+    {
+      "design": "orchestrator-static",
+      "seed": 1003,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.300204219563802,
+      "leadP95Min": 182.03338057047526,
+      "latePct": 2.6421911421911424,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24100304361979166,
+      "amrUtilisationPct": 13.233819051752645,
+      "cellUtilisationPct": 45.00069073533527,
+      "messages": 13752317,
+      "kbPerDay": 10251.778363238323,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 96,
+      "partitionLeadP95Min": 405.2155527791341
+    },
+    {
+      "design": "point-to-point",
+      "seed": 1004,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.337721728515625,
+      "leadP95Min": 199.72737058105469,
+      "latePct": 3.2902097902097904,
+      "duplicateExecutions": 3312,
+      "stuckOrders": 0,
+      "manualResets": 557,
+      "erpDoubleBookings": 2180,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24155057779947917,
+      "amrUtilisationPct": 13.545783145625593,
+      "cellUtilisationPct": 46.48951893028846,
+      "messages": 13168246,
+      "kbPerDay": 10033.136026571085,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 0,
+      "partitionLeadP95Min": 555.537291764323
+    },
+    {
+      "design": "cloud-only",
+      "seed": 1004,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.577832246907552,
+      "leadP95Min": 174.77939114176434,
+      "latePct": 2.5594405594405596,
+      "duplicateExecutions": 491,
+      "stuckOrders": 0,
+      "manualResets": 425,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24198561197916665,
+      "amrUtilisationPct": 13.350680708180708,
+      "cellUtilisationPct": 45.10036375343407,
+      "messages": 13158124,
+      "kbPerDay": 10026.189286787432,
+      "reassignedFromSilentEdges": 184,
+      "reconciles": 0,
+      "partitionLeadP95Min": 455.36927630615236
+    },
+    {
+      "design": "orchestrator",
+      "seed": 1004,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.5841494140625,
+      "leadP95Min": 171.6567019938151,
+      "latePct": 2.5058275058275057,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24204532877604168,
+      "amrUtilisationPct": 13.306773499503969,
+      "cellUtilisationPct": 44.94931825285536,
+      "messages": 13778366,
+      "kbPerDay": 10267.666874141483,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 125,
+      "partitionLeadP95Min": 448.92586039632164
+    },
+    {
+      "design": "orchestrator-static",
+      "seed": 1004,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.306091284179687,
+      "leadP95Min": 183.6089395345052,
+      "latePct": 2.5384615384615383,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24164368896484376,
+      "amrUtilisationPct": 13.248287307310745,
+      "cellUtilisationPct": 45.22723023186305,
+      "messages": 13765280,
+      "kbPerDay": 10259.125600961539,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 126,
+      "partitionLeadP95Min": 382.5011950032552
+    },
+    {
+      "design": "point-to-point",
+      "seed": 1005,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.32219130452474,
+      "leadP95Min": 198.58032672526042,
+      "latePct": 3.2925407925407923,
+      "duplicateExecutions": 3349,
+      "stuckOrders": 0,
+      "manualResets": 635,
+      "erpDoubleBookings": 2177,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24178140462239583,
+      "amrUtilisationPct": 13.540159087343984,
+      "cellUtilisationPct": 46.69573454749822,
+      "messages": 13168598,
+      "kbPerDay": 10033.388430417239,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 0,
+      "partitionLeadP95Min": 526.4183415690104
+    },
+    {
+      "design": "cloud-only",
+      "seed": 1005,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.576573726399739,
+      "leadP95Min": 174.97079831542968,
+      "latePct": 2.7843822843822843,
+      "duplicateExecutions": 504,
+      "stuckOrders": 0,
+      "manualResets": 431,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24224337565104168,
+      "amrUtilisationPct": 13.347538053478157,
+      "cellUtilisationPct": 45.29306720117267,
+      "messages": 13158310,
+      "kbPerDay": 10026.31830571772,
+      "reassignedFromSilentEdges": 200,
+      "reconciles": 0,
+      "partitionLeadP95Min": 466.85263747558594
+    },
+    {
+      "design": "orchestrator",
+      "seed": 1005,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 4.576723579915365,
+      "leadP95Min": 173.0005057413737,
+      "latePct": 2.682983682983683,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.24207749837239584,
+      "amrUtilisationPct": 13.29963144417311,
+      "cellUtilisationPct": 45.13358871893442,
+      "messages": 13796036,
+      "kbPerDay": 10277.664325420674,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 117,
+      "partitionLeadP95Min": 467.46619977213544
+    },
+    {
+      "design": "orchestrator-static",
+      "seed": 1005,
+      "days": 364,
+      "orders": 85800,
+      "completed": 85800,
+      "leadP50Min": 5.302767399088542,
+      "leadP95Min": 184.87416750488282,
+      "latePct": 2.6736596736596736,
+      "duplicateExecutions": 0,
+      "stuckOrders": 0,
+      "manualResets": 0,
+      "erpDoubleBookings": 0,
+      "erpMissing": 0,
+      "erpLagP95Min": 0.2419889200846354,
+      "amrUtilisationPct": 13.240648671737214,
+      "cellUtilisationPct": 45.398518714864416,
+      "messages": 13731507,
+      "kbPerDay": 10240.072330013736,
+      "reassignedFromSilentEdges": 0,
+      "reconciles": 117,
+      "partitionLeadP95Min": 427.2454886922201
+    }
+  ]
+}
